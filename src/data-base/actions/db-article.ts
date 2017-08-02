@@ -4,7 +4,7 @@ import { listChildrenKeyToCamelCase } from '../utils/to-camel-case';
 connection.connect();
 
 export class DBArticle {
-    getArticle(id: number) {
+    get(id: number) {
         return new Promise<any>((resolve, reject) => {
             connection.query(`select * from article where id=${id}`, (error, result) => {
                 if (error) {
@@ -16,7 +16,7 @@ export class DBArticle {
         });
     }
 
-    getArticles(currentPage: number, pageSize: number) {
+    getList(currentPage: number, pageSize: number) {
         return new Promise<any>((resolve, reject) => {
             connection.query('select count(*) from article', (error, result) => {
                 const rows = result[0]['count(*)'];
@@ -53,7 +53,7 @@ export class DBArticle {
         });
     }
 
-    addArticle(article: any) {
+    add(article: any) {
         return new Promise<void>((resolve, reject) => {
             const keys = ['title', 'content', 'create_time', 'create_user'].join(',');
             const values = [article.title, article.content, article.createTime, article.createUser];
@@ -69,7 +69,7 @@ export class DBArticle {
         });
     }
 
-    updateArticle(id: number, article: any) {
+    update(id: number, article: any) {
         return new Promise<void>((resolve, reject) => {
             const keys = ['title = ?', 'content = ?', 'update_time = ?', 'update_user = ?'].join(',');
             const values = [article.title, article.content, article.updateTime, article.updateUser];
