@@ -1,0 +1,1 @@
+export { DBArticle } from './actions/db-article';

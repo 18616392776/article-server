@@ -1,0 +1,115 @@
+{
+  "rules": {
+    "adjacent-overload-signatures": true,
+    "member-ordering": [
+      true,
+      "public-before-private",
+      "static-before-instance",
+      "variables-before-functions"
+    ],
+    "no-empty-interface": true,
+    "no-import-side-effect": true,
+    "no-internal-module": true,
+    "no-non-null-assertion": true,
+    "no-var-requires": true,
+    "typedef": true,
+    "curly": true,
+    "forin": true,
+    "label-position": true,
+    "no-arg": true,
+    "no-bitwise": true,
+    "no-conditional-assignment": true,
+    "no-duplicate-super": true,
+    "no-duplicate-variable": true,
+    "no-empty": true,
+    "no-eval": true,
+    "no-invalid-this": true,
+    "no-misused-new": true,
+    "no-unsafe-finally": true,
+    "no-unused-expression": true,
+    "no-unused-variable": true,
+    "no-use-before-declare": true,
+    "no-var-keyword": true,
+    "eofline": false,
+    "indent": [
+      true,
+      "spaces"
+    ],
+    "max-classes-per-file": [
+      true,
+      1
+    ],
+    "max-file-line-count": [
+      true,
+      300
+    ],
+    "max-line-length": [
+      true,
+      120
+    ],
+    "no-default-export": true,
+    "no-mergeable-namespace": true,
+    "no-require-imports": true,
+    "align": [
+      true,
+      "parameters",
+      "statements"
+    ],
+    "array-type": [
+      true,
+      "generic"
+    ],
+    "arrow-return-shorthand": [
+      true,
+      "multiline"
+    ],
+    "class-name": true,
+    "comment-format": [
+      true,
+      "check-space"
+    ],
+    "import-spacing": true,
+    "jsdoc-format": true,
+    "new-parens": true,
+    "no-consecutive-blank-lines": true,
+    "no-parameter-properties": true,
+    "no-trailing-whitespace": true,
+    "no-unnecessary-initializer": true,
+    "one-line": [
+      true,
+      "check-open-brace",
+      "check-catch",
+      "check-else",
+      "check-whitespace"
+    ],
+    "one-variable-per-declaration": [
+      true,
+      "ignore-for-loop"
+    ],
+    "prefer-method-signature": true,
+    "quotemark": [
+      true,
+      "single"
+    ],
+    "semicolon": [
+      true,
+      "always"
+    ],
+    "variable-name": [
+      true,
+      "ban-keywords",
+      "check-format",
+      "allow-leading-underscore"
+    ],
+    "whitespace": [
+      true,
+      "check-branch",
+      "check-decl",
+      "check-module",
+      "check-operator",
+      "check-separator",
+      "check-type",
+      "check-typecast"
+    ]
+  }
+}
