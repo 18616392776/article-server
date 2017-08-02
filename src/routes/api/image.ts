@@ -7,7 +7,7 @@ import { responseHeaders } from '../utils/response-headers';
 import { toDouble } from '../utils/to-double';
 
 
-export function imageUpload(request: Request, response: Response, next: NextFunction) {
+export function upload(request: Request, response: Response, next: NextFunction) {
 
     const date = new Date();
     const folderName = `${date.getFullYear()}-${toDouble(date.getMonth() + 1)}-${toDouble(date.getDate())}`;

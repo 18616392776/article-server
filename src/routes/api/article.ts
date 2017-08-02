@@ -5,7 +5,11 @@ import { responseHeaders } from '../utils/response-headers';
 
 const dbArticle = new DBArticle();
 
-export function updateArticle(request: Request, response: Response) {
+export function publish() {
+
+}
+
+export function update(request: Request, response: Response) {
     let body = '';
     request.on('data', chunk => {
         body += chunk;
@@ -35,7 +39,7 @@ export function updateArticle(request: Request, response: Response) {
     });
 }
 
-export function getArticle(request: Request, response: Response) {
+export function get(request: Request, response: Response) {
     const query = request.query;
 
     dbArticle.getArticle(query.id).then(result => {
@@ -55,7 +59,7 @@ export function getArticle(request: Request, response: Response) {
     });
 }
 
-export function getArticles(request: Request, response: Response) {
+export function getList(request: Request, response: Response) {
     const query = request.query;
     dbArticle.getArticles(+query.currentPage || 1, +query.pageSize || 10).then((result: any) => {
         response.writeHead(200, responseHeaders.json);
@@ -76,7 +80,7 @@ export function getArticles(request: Request, response: Response) {
 
 }
 
-export function addArticle(request: Request, response: Response) {
+export function add(request: Request, response: Response) {
     let body = '';
     request.on('data', (chunk) => {
         body += chunk;
