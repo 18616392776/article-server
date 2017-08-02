@@ -1,0 +1,23 @@
+a {
+    color: $color-primary;
+}
+
+blockquote {
+    padding: 10px 15px;
+    border-left: 10px solid #D6DBDF;
+    margin: 0 0 10px;
+    background-color: rgba(102, 128, 153, .05);
+    > ul, > ol {
+        margin: 0 0 10px 25px;
+        padding-left: 0;
+    }
+    > p {
+        margin: 0;
+    }
+}
+
+table {
+    @extend .table;
+    @extend .table-bordered;
+    @extend .table-striped;
+}
