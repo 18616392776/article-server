@@ -1,11 +1,11 @@
 import * as express from 'express';
 
-import { PORT, IP, IMG_FOLDER } from './global-config';
+import { PORT, IP, STATIC_PATH } from './global-config';
 import { useApi } from './routes/index';
 
 const app = express();
 
-app.use(express.static(IMG_FOLDER));
+app.use(express.static(STATIC_PATH));
 
 useApi(app);
 

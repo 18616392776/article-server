@@ -13,6 +13,6 @@ module.exports = {
     localPath,
     buildPath,
     staticPublicPath: 'static/',
-    onlinePublishPathPrefix: '/',
+    onlinePublishPathPrefix: './',
     appPath
 };

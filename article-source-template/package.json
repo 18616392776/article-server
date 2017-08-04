@@ -9,10 +9,9 @@
     "doc": "cross-env NODE_ENV=documentation node server/doc-server.js",
     "pack": "webpack-dev-server --inline --progress --port 8080",
     "test": "karma start",
-    "build": "npm run clean && npm run ngc && cross-env NODE_ENV=production webpack --config config/webpack.prod.js --progress --profile --bail --optimize-minimize && rimraf aot",
+    "build": "rimraf dist aot && npm run ngc && cross-env NODE_ENV=production webpack --config config/webpack.prod.js --progress --profile --bail",
     "production": "npm run build && node server/product-server.js",
-    "clean": "rimraf dist && rimraf aot",
-    "ngc": "node_modules/.bin/ngc -p tsconfig-aot.json"
+    "ngc": "node_modules/.bin/ngc -p tsconfig.json"
   },
   "keywords": [
     "angular2",
@@ -38,6 +37,7 @@
     "core-js": "2.4.1",
     "normalize.css": "6.0.0",
     "rxjs": "5.4.2",
+    "tanbo-ui": "^1.4.29-alpha",
     "zone.js": "0.8.12"
   },
   "devDependencies": {

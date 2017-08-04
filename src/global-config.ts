@@ -2,4 +2,5 @@ import { address } from 'ip';
 
 export const PORT = 2222;
 export const IP = address();
-export const IMG_FOLDER = './public/';
+export const HOST = IP;
+export const STATIC_PATH = './public/';

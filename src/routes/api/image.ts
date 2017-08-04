@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { Form, File } from 'multiparty';
 import { rename, existsSync, mkdirSync } from 'fs';
 
-import { IMG_FOLDER } from '../../global-config';
+import { STATIC_PATH } from '../../global-config';
 import { responseHeaders } from '../utils/response-headers';
 import { toDouble } from '../utils/to-double';
 
@@ -11,7 +11,7 @@ export function upload(request: Request, response: Response, next: NextFunction)
 
     const date = new Date();
     const folderName = `${date.getFullYear()}-${toDouble(date.getMonth() + 1)}-${toDouble(date.getDate())}`;
-    const path = IMG_FOLDER + folderName + '/';
+    const path = STATIC_PATH + folderName + '/';
     console.log(path);
     if (!existsSync(path)) {
         mkdirSync(path);

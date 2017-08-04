@@ -5,7 +5,6 @@ import { UiComponentsModule } from 'tanbo-ui';
 
 import { AppComponent } from './app';
 
-
 @NgModule({
     imports: [
         UiComponentsModule,

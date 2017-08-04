@@ -104,7 +104,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: path.resolve(appPath, 'index.html'),
             // favicon: path.resolve(appPath, 'assets/images/favicon.ico'),
-            title: 'test',
+            title: process.env.title || 'test',
             chunksSortMode(n, m) {
                 let order = ['polyfills', 'vendor', 'app'];
                 let order1 = order.indexOf(n.names[0]);
