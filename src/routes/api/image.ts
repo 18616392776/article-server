@@ -34,6 +34,7 @@ export function getList(request: Request, response: Response) {
 export function upload(request: Request, response: Response) {
 
     const date = new Date();
+    let fileNamePrefix = date.getTime();
     const folderName = `${date.getFullYear()}-${toDouble(date.getMonth() + 1)}-${toDouble(date.getDate())}/`;
     const path = STATIC_PATH + folderName;
     if (!existsSync(path)) {
@@ -46,7 +47,7 @@ export function upload(request: Request, response: Response) {
     });
     form.parse(request, (error, fields, files) => {
         const fileNames: Array<any> = [];
-        const filesTmp = JSON.stringify(files, null, 2);
+        // const filesTmp = JSON.stringify(files, null, 2);
         if (error) {
             console.log('文件解析出错: ' + error);
             response.writeHead(200, responseHeaders.json);
@@ -57,11 +58,12 @@ export function upload(request: Request, response: Response) {
             }));
             return;
         }
-        console.log('上传文件信息: ' + filesTmp);
+        // console.log('上传文件信息: ' + filesTmp);
 
         files.fileName.forEach((item: File) => {
             const rawPath = item.path;
-            const filePath = date.getTime() + item['originalFilename'].replace(/.*(?=\.\w+$)/, '');
+            const filePath = fileNamePrefix + item['originalFilename'].replace(/.*(?=\.\w+$)/, '');
+            fileNamePrefix++;
             const newPath = path + filePath;
             fileNames.push({
                 url: folderName + filePath,
