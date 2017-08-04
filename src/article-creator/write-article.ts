@@ -16,16 +16,18 @@ export function compile(title: string, content: Array<MarkdownType | EmptyType |
                 reject(error);
             }
 
+            process.env.title = title;
+
             let child = spawn('npm run build', [], {
                 stdio: 'inherit',
                 cwd: 'article-source-template/',
-                shell: true
+                shell: true,
+                env: process.env
             });
             child.on('error', (error) => {
                 reject(error);
             });
             child.on('close', (data) => {
-
                 const folderName = 'article/' + Math.ceil(Math.random() * 10000).toString(36) + '/';
                 copy('article-source-template/dist', STATIC_PATH + folderName).then(() => {
                     const url = `${HOST}:${PORT}/${folderName}index.html`;

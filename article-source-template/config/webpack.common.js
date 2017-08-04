@@ -9,6 +9,9 @@ const cssTest = require('./css-test');
 const isProduction = process.env.NODE_ENV === 'production';
 const appPath = globalConfig.appPath;
 
+console.log(2222222);
+console.log(process.env);
+
 
 const publicPaths = [path.resolve(appPath, 'assets'), path.resolve(__dirname, '../node_modules')];
 
@@ -47,7 +50,8 @@ module.exports = {
                     removeAttributeQuotes: !isProduction,
                     caseSensitive: isProduction
                 }
-            }]
+            }],
+            exclude: [path.resolve(appPath, 'index.html')]
         }, {
             test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
             use: [{
@@ -104,7 +108,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: path.resolve(appPath, 'index.html'),
             // favicon: path.resolve(appPath, 'assets/images/favicon.ico'),
-            title: process.env.title || 'test',
+            title: process.env.title,
             chunksSortMode(n, m) {
                 let order = ['polyfills', 'vendor', 'app'];
                 let order1 = order.indexOf(n.names[0]);
