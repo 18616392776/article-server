@@ -1,8 +1,6 @@
 import { connection } from '../connection';
 import { listChildrenKeyToCamelCase } from '../utils/to-camel-case';
 
-connection.connect();
-
 export class DBArticle {
     get(id: number) {
         return new Promise<any>((resolve, reject) => {
@@ -40,8 +38,13 @@ export class DBArticle {
             });
         }).then(result => {
             return new Promise<any>((resolve, reject) => {
-                let start = (result.currentPage - 1) * result.pageSize;
-                connection.query(`select title, id from article limit ${start}, ${start + result.pageSize}`, (error, rows) => {
+                if (result.total === 0) {
+                    result.dataList = [];
+                    resolve(result);
+                }
+                const start = (result.currentPage - 1) * result.pageSize;
+                const sql = `select title, id from article limit ${start}, ${start + result.pageSize}`;
+                connection.query(sql, (error, rows) => {
                     if (error) {
                         reject(error);
                         throw error;

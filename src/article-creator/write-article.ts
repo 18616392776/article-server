@@ -28,9 +28,15 @@ export function compile(title: string, content: Array<MarkdownType | EmptyType |
                 reject(error);
             });
             child.on('close', (data) => {
+
+                if (data !== 0) {
+                    reject(new Error('文章发布失败，子进程错误代码`' + data + '`！'));
+                    return;
+                }
                 const folderName = 'article/' + Math.ceil(Math.random() * 10000).toString(36) + '/';
                 copy('article-source-template/dist', STATIC_PATH + folderName).then(() => {
                     const url = `${HOST}:${PORT}/${folderName}index.html`;
+                    console.log(`文章发布成功，发布地址：${url}`);
                     resolve(url);
                 }).catch(() => {
                     reject(new Error('复制文章失败！'));
