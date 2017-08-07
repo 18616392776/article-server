@@ -13,5 +13,8 @@
     "noImplicitAny": true,
     "suppressImplicitAnyIndexErrors": true,
     "outDir": "./dist"
-  }
+  },
+  "exclude": [
+    "article-source-template/"
+  ]
 }
