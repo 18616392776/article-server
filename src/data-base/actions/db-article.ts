@@ -4,7 +4,7 @@ import { listChildrenKeyToCamelCase } from '../utils/to-camel-case';
 export class DBArticle {
     get(id: number) {
         return new Promise<any>((resolve, reject) => {
-            connection.query(`select * from article where id=${id}`, (error, result) => {
+            connection.query(`select content from article where id=${id}`, (error, result) => {
                 if (error) {
                     reject(error);
                     throw error;
@@ -62,12 +62,12 @@ export class DBArticle {
             const values = [article.title, article.content, article.createTime, article.createUser];
 
             const sql = `insert into article(${keys}) values(?, ?, ? ,?)`;
-            connection.query(sql, values, (error) => {
+            connection.query(sql, values, (error, result) => {
                 if (error) {
                     reject(error);
                     throw error;
                 }
-                resolve();
+                resolve(result.insertId);
             });
         });
     }

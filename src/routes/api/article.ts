@@ -23,17 +23,23 @@ export function publish(request: Request, response: Response) {
             content: JSON.stringify(result.content),
             createUser: 1,
             createTime: new Date()
-        }).then(() => result);
+        }).then(id => {
+            result.id = id;
+            return result;
+        });
 
     }).then(result => {
-        return compile(result.title, result.content);
-    }).then((articleUrl: string) => {
+        return compile(result.title, result.content).then(articleUrl => {
+            return {
+                articleUrl,
+                id: result.id
+            };
+        });
+    }).then((result: any) => {
         response.writeHead(200, responseHeaders.json);
         response.end(JSON.stringify({
             success: true,
-            data: {
-                articleUrl
-            },
+            data: result,
             message: '文章保存成功！'
         }));
     }, error => {
@@ -76,11 +82,13 @@ export function get(request: Request, response: Response) {
     const query = request.query;
 
     dbArticle.get(query.id).then(result => {
-        result.content = JSON.parse(result.content);
         response.writeHead(200, responseHeaders.json);
         response.end(JSON.stringify({
             success: true,
-            data: result,
+            data: {
+                content: JSON.parse(result.content),
+                id: query.id
+            },
             message: '请求成功！'
         }));
     }, error => {
