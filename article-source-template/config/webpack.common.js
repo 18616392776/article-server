@@ -9,9 +9,6 @@ const cssTest = require('./css-test');
 const isProduction = process.env.NODE_ENV === 'production';
 const appPath = globalConfig.appPath;
 
-console.log(2222222);
-console.log(process.env);
-
 
 const publicPaths = [path.resolve(appPath, 'assets'), path.resolve(__dirname, '../node_modules')];
 

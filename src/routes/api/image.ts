@@ -3,7 +3,7 @@ import { Form, File } from 'multiparty';
 import { rename, existsSync, mkdirSync } from 'fs';
 
 import { DBImage } from '../../data-base/index';
-import { STATIC_PATH, IMAGE_LIBRARIES_PATH } from '../../global-config';
+import { STATIC_PATH, IMAGE_LIBRARIES_PATH, HOST, PORT } from '../../global-config';
 import { responseHeaders } from '../utils/response-headers';
 import { toDouble } from '../utils/to-double';
 
@@ -65,8 +65,9 @@ export function upload(request: Request, response: Response) {
             const filePath = fileNamePrefix + item['originalFilename'].replace(/.*(?=\.\w+$)/, '');
             fileNamePrefix++;
             const newPath = path + filePath;
+            const url = HOST + ':' + PORT + '/' + folderName + filePath;
             fileNames.push({
-                url: folderName + filePath,
+                url,
                 name: item['originalFilename'],
                 rawName: item['originalFilename']
             });
@@ -77,7 +78,7 @@ export function upload(request: Request, response: Response) {
                     console.log('重命名失败: ' + error);
                     return;
                 }
-                dbImage.add(folderName + filePath, newPath, item['originalFilename']).then(() => {
+                dbImage.add(folderName + filePath, newPath, url, item['originalFilename']).then(() => {
                     console.log('图片信息存入数据库成功！');
                 }, error => {
                     throw error;
