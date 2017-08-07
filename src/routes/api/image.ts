@@ -3,7 +3,7 @@ import { Form, File } from 'multiparty';
 import { rename, existsSync, mkdirSync } from 'fs';
 
 import { DBImage } from '../../data-base/index';
-import { STATIC_PATH } from '../../global-config';
+import { STATIC_PATH, IMAGE_LIBRARIES_PATH } from '../../global-config';
 import { responseHeaders } from '../utils/response-headers';
 import { toDouble } from '../utils/to-double';
 
@@ -35,7 +35,7 @@ export function upload(request: Request, response: Response) {
 
     const date = new Date();
     let fileNamePrefix = date.getTime();
-    const folderName = `${date.getFullYear()}-${toDouble(date.getMonth() + 1)}-${toDouble(date.getDate())}/`;
+    const folderName = `${IMAGE_LIBRARIES_PATH}${date.getFullYear()}-${toDouble(date.getMonth() + 1)}-${toDouble(date.getDate())}/`;
     const path = STATIC_PATH + folderName;
     if (!existsSync(path)) {
         mkdirSync(path);

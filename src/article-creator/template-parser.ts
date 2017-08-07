@@ -6,7 +6,7 @@ export function templateToXML(content: Array<MarkdownType | EmptyType | SlideTyp
     content.forEach(item => {
         switch (item.type) {
             case 'markdown':
-                result.push(item.value);
+                result.push(item.value.replace(/([{}])/g, '{{\'$1\'}}'));
                 break;
             case 'slide':
                 result.push(slideParser(item));

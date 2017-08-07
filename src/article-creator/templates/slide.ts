@@ -15,7 +15,7 @@ export function slideParser(source: SlideType): string {
     });
 
     return `
-        <ui-slide [width]="${source.config.width}" [height]="$\{source.config.height}">
+        <ui-slide style="width: ${source.config.width}px; height: ${source.config.width}px">
         ${slideItems.join('')}
         </ui-slide>
     `;
