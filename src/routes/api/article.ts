@@ -86,6 +86,7 @@ export function get(request: Request, response: Response) {
         response.end(JSON.stringify({
             success: true,
             data: {
+                title: result.title,
                 content: JSON.parse(result.content),
                 id: query.id
             },

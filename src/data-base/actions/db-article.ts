@@ -4,7 +4,7 @@ import { listChildrenKeyToCamelCase } from '../utils/to-camel-case';
 export class DBArticle {
     get(id: number) {
         return new Promise<any>((resolve, reject) => {
-            connection.query(`select content from article where id=${id}`, (error, result) => {
+            connection.query(`select content, title from article where id=${id}`, (error, result) => {
                 if (error) {
                     reject(error);
                     throw error;

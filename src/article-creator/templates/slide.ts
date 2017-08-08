@@ -5,9 +5,8 @@ export function slideParser(source: SlideType): string {
 
     source.config.slideItems.forEach(item => {
         let str = `
-            <ui-slide-item>
+            <ui-slide-item style="background-image: url(${item.src})">
                 <a href="${item.link || 'javascript'}" target="${item.target}">
-                    <img src="${item.src}">
                 </a> 
             </ui-slide-item>
         `;
@@ -15,7 +14,7 @@ export function slideParser(source: SlideType): string {
     });
 
     return `
-        <ui-slide style="width: ${source.config.width}px; height: ${source.config.width}px">
+        <ui-slide style="padding-bottom: ${source.config.height / source.config.width * 100}%">
         ${slideItems.join('')}
         </ui-slide>
     `;
