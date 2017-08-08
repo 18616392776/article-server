@@ -59,10 +59,6 @@
       true,
       "generic"
     ],
-    "arrow-return-shorthand": [
-      true,
-      "multiline"
-    ],
     "class-name": true,
     "comment-format": [
       true,

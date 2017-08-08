@@ -4,7 +4,7 @@ import { listChildrenKeyToCamelCase } from '../utils/to-camel-case';
 export class DBArticle {
     get(id: number) {
         return new Promise<any>((resolve, reject) => {
-            connection.query(`select content, title from article where id=${id}`, (error, result) => {
+            connection.query(`select * from article where id=${id}`, (error, result) => {
                 if (error) {
                     reject(error);
                     throw error;
@@ -43,7 +43,7 @@ export class DBArticle {
                     resolve(result);
                 }
                 const start = (result.currentPage - 1) * result.pageSize;
-                const sql = `select title, id from article limit ${start}, ${start + result.pageSize}`;
+                const sql = `select title, id, url from article limit ${start}, ${start + result.pageSize}`;
                 connection.query(sql, (error, rows) => {
                     if (error) {
                         reject(error);
@@ -58,10 +58,24 @@ export class DBArticle {
 
     add(article: any) {
         return new Promise<void>((resolve, reject) => {
-            const keys = ['title', 'content', 'create_time', 'create_user'].join(',');
-            const values = [article.title, article.content, article.createTime, article.createUser];
+            const keys = [
+                'title',
+                'content',
+                'create_time',
+                'create_user',
+                'url',
+                'cwd'
+            ].join(',');
+            const values = [
+                article.title,
+                article.content,
+                article.createTime,
+                article.createUser,
+                article.url,
+                article.cwd
+            ];
 
-            const sql = `insert into article(${keys}) values(?, ?, ? ,?)`;
+            const sql = `insert into article(${keys}) values(?, ?, ? ,?, ?, ?)`;
             connection.query(sql, values, (error, result) => {
                 if (error) {
                     reject(error);
@@ -74,8 +88,22 @@ export class DBArticle {
 
     update(id: number, article: any) {
         return new Promise<void>((resolve, reject) => {
-            const keys = ['title = ?', 'content = ?', 'update_time = ?', 'update_user = ?'].join(',');
-            const values = [article.title, article.content, article.updateTime, article.updateUser];
+            const keys = [
+                'title = ?',
+                'content = ?',
+                'update_time = ?',
+                'update_user = ?',
+                'url = ?',
+                'cwd = ?'
+            ].join(',');
+            const values = [
+                article.title,
+                article.content,
+                article.updateTime,
+                article.updateUser,
+                article.url,
+                article.cwd
+            ];
 
             const sql = `update article set ${keys} where id = ${id}`;
             connection.query(sql, values, (error) => {

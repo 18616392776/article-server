@@ -7,34 +7,49 @@ import { compile } from '../../article-creator/write-article';
 
 const dbArticle = new DBArticle();
 
+// 发布文章
 export function publish(request: Request, response: Response) {
     getBody(request).then(bodyText => {
         const result = JSON.parse(bodyText);
         if (result.hasOwnProperty('id')) {
-            return dbArticle.update(result.id, {
-                title: result.title,
-                content: JSON.stringify(result.content),
-                updateTime: new Date(),
-                updateUser: 2
-            }).then(() => result);
+            return dbArticle.get(result.id).then(article => {
+                // 编译文章
+                return compile(result.title, result.content, article.cwd);
+            }).then(articleInfo => {
+                // 把文章更新信息存入数据库
+                return dbArticle.update(result.id, {
+                    title: result.title,
+                    content: JSON.stringify(result.content),
+                    updateTime: new Date(),
+                    updateUser: 2,
+                    url: articleInfo.url,
+                    cwd: articleInfo.cwd
+                }).then(() => {
+                    return {
+                        url: articleInfo.url,
+                        id: result.id
+                    };
+                });
+            });
+        } else {
+            // 编译文章
+            return compile(result.title, result.content).then(articleInfo => {
+                // 把文章信息存入数据库
+                return dbArticle.add({
+                    title: result.title,
+                    content: JSON.stringify(result.content),
+                    createUser: 1,
+                    createTime: new Date(),
+                    url: articleInfo.url,
+                    cwd: articleInfo.cwd
+                }).then(id => {
+                    return {
+                        url: articleInfo.url,
+                        id
+                    };
+                });
+            });
         }
-        return dbArticle.add({
-            title: result.title,
-            content: JSON.stringify(result.content),
-            createUser: 1,
-            createTime: new Date()
-        }).then(id => {
-            result.id = id;
-            return result;
-        });
-
-    }).then(result => {
-        return compile(result.title, result.content).then(articleUrl => {
-            return {
-                articleUrl,
-                id: result.id
-            };
-        });
     }).then((result: any) => {
         response.writeHead(200, responseHeaders.json);
         response.end(JSON.stringify({
@@ -52,6 +67,7 @@ export function publish(request: Request, response: Response) {
     });
 }
 
+// 更新文章
 export function update(request: Request, response: Response) {
     getBody(request).then(bodyText => {
         const result = JSON.parse(bodyText);
@@ -59,6 +75,7 @@ export function update(request: Request, response: Response) {
             title: result.title,
             content: JSON.stringify(result.content),
             updateTime: new Date(),
+            // TODO 用户相关业务未实现
             updateUser: 2
         }).then(() => {
             response.writeHead(200, responseHeaders.json);
@@ -78,6 +95,7 @@ export function update(request: Request, response: Response) {
     });
 }
 
+// 通过id获取文章
 export function get(request: Request, response: Response) {
     const query = request.query;
 
@@ -102,6 +120,7 @@ export function get(request: Request, response: Response) {
     });
 }
 
+// 获取文章列表
 export function getList(request: Request, response: Response) {
     const query = request.query;
     const currentPage = +query.currentPage || 1;
@@ -124,12 +143,14 @@ export function getList(request: Request, response: Response) {
     });
 }
 
+// 添加文章
 export function add(request: Request, response: Response) {
     getBody(request).then(bodyText => {
         const result: any = JSON.parse(bodyText);
         dbArticle.add({
             title: result.title,
             content: result.content,
+            // TODO 用户相关业务未实现
             createUser: 1,
             createTime: new Date()
         }).then(() => {

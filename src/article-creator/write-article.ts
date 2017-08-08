@@ -7,8 +7,8 @@ import { STATIC_PATH, HOST, PORT } from '../global-config';
 import { templateToXML } from './template-parser';
 import { MarkdownType, EmptyType, SlideType } from './help-types';
 
-export function compile(title: string, content: Array<MarkdownType | EmptyType | SlideType>) {
-    return new Promise<string>((resolve, reject) => {
+export function compile(title: string, content: Array<MarkdownType | EmptyType | SlideType>, cwd?: string) {
+    return new Promise<any>((resolve, reject) => {
         const fileName = join(__dirname, '../../article-source-template/src/views/app.html');
         const result = templateToXML(content);
         writeFile(fileName, result, (error => {
@@ -33,11 +33,17 @@ export function compile(title: string, content: Array<MarkdownType | EmptyType |
                     reject(new Error('文章发布失败，子进程错误代码`' + data + '`！'));
                     return;
                 }
-                const folderName = 'article/' + Math.ceil(Math.random() * 10000).toString(36) + '/';
-                copy('article-source-template/dist', STATIC_PATH + folderName).then(() => {
-                    const url = `${HOST}:${PORT}/${folderName}index.html`;
+                if (!cwd) {
+                    cwd = 'article/' + Math.ceil(Math.random() * 10000).toString(36) + '/';
+                }
+                const targetPath = STATIC_PATH + cwd;
+                copy('article-source-template/dist', targetPath).then(() => {
+                    const url = `${HOST}:${PORT}/${cwd}index.html`;
                     console.log(`文章发布成功，发布地址：${url}`);
-                    resolve(url);
+                    resolve({
+                        url,
+                        cwd
+                    });
                 }).catch(() => {
                     reject(new Error('复制文章失败！'));
                 });
