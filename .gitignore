@@ -1,6 +1,5 @@
 .DS_Store
 node_modules/
-public/
 article-source-template/node_modules/
 article-source-template/dist/
 npm-debug.log
