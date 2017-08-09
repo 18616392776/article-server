@@ -149,7 +149,7 @@ export function add(request: Request, response: Response) {
         const result: any = JSON.parse(bodyText);
         dbArticle.add({
             title: result.title,
-            content: result.content,
+            content: JSON.stringify(result.content),
             // TODO 用户相关业务未实现
             createUser: 1,
             createTime: new Date()

@@ -89,7 +89,6 @@ export class DBArticle {
                 article.url,
                 article.cwd
             ];
-
             const sql = `insert into article(${keys}) values(?, ?, ? ,?, ?, ?)`;
             connection.query(sql, values, (error, result) => {
                 if (error) {
