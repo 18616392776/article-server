@@ -1,5 +1,5 @@
 {
-  "name": "img-server",
+  "name": "article-server",
   "version": "1.0.0",
   "description": "云宝宝文章管理后台",
   "main": "index.js",
