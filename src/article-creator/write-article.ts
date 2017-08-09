@@ -3,7 +3,7 @@ import { join } from 'path';
 import { spawn } from 'child_process';
 import { copy } from 'fs-extra';
 
-import { STATIC_PATH, HOST, PORT } from '../global-config';
+import { STATIC_PATH, HOST, PORT, ARTICLE_PATH } from '../global-config';
 import { templateToXML } from './template-parser';
 import { MarkdownType, EmptyType, SlideType } from './help-types';
 
@@ -34,7 +34,7 @@ export function compile(title: string, content: Array<MarkdownType | EmptyType |
                     return;
                 }
                 if (!cwd) {
-                    cwd = 'article/' + Math.ceil(Math.random() * 10000).toString(36) + '/';
+                    cwd = ARTICLE_PATH + Math.ceil(Math.random() * 10000).toString(36) + '/';
                 }
                 const targetPath = STATIC_PATH + cwd;
                 copy('article-source-template/dist', targetPath).then(() => {

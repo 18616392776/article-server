@@ -52,3 +52,4 @@ gulp.task('server', ['script'], () => {
 
 gulp.task('start', ['watch', 'server']);
 gulp.task('debugger', ['watch', 'script']);
+gulp.task('production', ['script']);
