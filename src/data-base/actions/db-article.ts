@@ -1,9 +1,24 @@
 import { connection } from '../connection';
 import { listChildrenKeyToCamelCase } from '../utils/to-camel-case';
 
+export interface DBArticleType {
+    id?: number;            // 主键，自增id
+    title?: string;         // 文章标题
+    content?: string;       // 文章内容
+    createTime?: Date;      // 创建时间
+    updateTime?: Date;      // 更新时间
+    createUser?: number;    // 创建用户
+    updateUser?: number;    // 更新用户
+    readCount?: number;     // 读取次数
+    keywords?: string;      // 关键字
+    delete?: boolean;       // 是否删除
+    cwd?: string;           // 储存路径
+    url?: string;           // 访问路由
+}
+
 export class DBArticle {
     get(id: number) {
-        return new Promise<any>((resolve, reject) => {
+        return new Promise<DBArticleType>((resolve, reject) => {
             connection.query(`select * from article where id=${id}`, (error, result) => {
                 if (error) {
                     reject(error);
@@ -37,7 +52,7 @@ export class DBArticle {
                 });
             });
         }).then(result => {
-            return new Promise<any>((resolve, reject) => {
+            return new Promise<DBArticleType>((resolve, reject) => {
                 if (result.total === 0) {
                     result.dataList = [];
                     resolve(result);
@@ -57,7 +72,7 @@ export class DBArticle {
     }
 
     add(article: any) {
-        return new Promise<void>((resolve, reject) => {
+        return new Promise<string>((resolve, reject) => {
             const keys = [
                 'title',
                 'content',

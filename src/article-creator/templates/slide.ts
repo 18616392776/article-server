@@ -6,7 +6,7 @@ export function slideParser(source: SlideType): string {
     source.config.slideItems.forEach(item => {
         let str = `
             <ui-slide-item style="background-image: url(${item.src})">
-                <a href="${item.link || 'javascript'}" target="${item.target}">
+                <a href="${item.link}" target="${item.target}">
                 </a> 
             </ui-slide-item>
         `;
