@@ -5,10 +5,10 @@
 ## 安装
 
 1、 安装[nodejs](https://nodejs.org/en/)最新版本  (centOS： `yum install nodejs`)  
-2、 分别运行 `node -v` 和 `npm -v`，检测版本号，确保node版本不低于8.0.0，npm版本不低于5.0.0
-3、 克隆本项目到本地  
-4、 控制台进入项目根目录
-5、 控制输入`npm i --registry=http://registry.npm.taobao.org`进行项目依赖安装  
+2、 分别运行 `node -v` 和 `npm -v`，检测版本号，确保node版本不低于8.0.0，npm版本不低于5.0.0  
+3、 克隆本项目到本地    
+4、 控制台进入项目根目录  
+5、 控制输入`npm i --registry=http://registry.npm.taobao.org`进行项目依赖安装    
 
 
 ## 运行
