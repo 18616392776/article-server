@@ -24,7 +24,7 @@
 
 ## 数据库配置
 
-打开`src/data-base/connection.ts`，修改相关配置
+打开`src/data-base/connection.ts`，修改相关配置，重启后生效。
 
 ## 启动配置
 
