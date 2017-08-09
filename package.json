@@ -6,7 +6,7 @@
   "scripts": {
     "start": "rimraf dist && gulp start",
     "debug": "rimraf dist && gulp debugger",
-    "production": "rimraf dist && gulp production && forever start -l forever.log -a dist/main.js",
+    "production": "rimraf dist && gulp production && forever start -l forever-article-server.log -a dist/main.js",
     "stop": "forever stop dist/main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
