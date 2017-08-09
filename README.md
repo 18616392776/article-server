@@ -22,6 +22,10 @@
 
 6、启动应用，`npm start` 
 
+## 数据库配置
+
+打开`src/data-base/connection.ts`，修改相关配置
+
 ## 启动配置
 
 进入`src`目录
